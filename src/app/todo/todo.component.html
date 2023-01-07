@@ -1,0 +1,32 @@
+<form (submit)="handleFormSubmit($event)">
+  <input
+    placeholder="Enter Your To-Do Name"
+    [value]="currentTodo.label"
+    (input)="handleChange(todoInput)"
+    #todoInput
+  />
+
+  <button type="submit">Create To-Do</button>
+</form>
+
+<section class="error" *ngIf="showError">
+  {{ error }}
+
+  <button (click)="closeError()">Close</button>
+</section>
+
+<ul>
+  <li *ngFor="let todo of todoService.todos">
+    <input
+      type="checkbox"
+      [id]="todo.id"
+      [checked]="todo.checked"
+      (input)="todoService.checkTodo(todo)"
+    />
+    <label [for]="todo.id">{{ todo.label }}</label>
+  </li>
+</ul>
+
+<section>
+  <button (click)="todoService.removeChecked()">Remove All Checked</button>
+</section>
